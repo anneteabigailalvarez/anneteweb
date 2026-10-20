@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>CICLISMO - Pasión, Deporte y Estilo de Vida</title>
+        <meta charset="utf-8">
+        <!--CSS-->
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <!--Google Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+        <!--Estilos Interactivos Avanzados (Scroll Bar, Dark Mode, Tarjetas, Galería, Calculadora y Mapa)-->
+        <style>
+            /* Barra de Progreso de Desplazamiento */
+            #scroll-progress {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 4px;
+                background: #4CAF50;
+                width: 0%;
+                z-index: 9999;
+                transition: width 0.1s ease;
+            }
+
+            /* Botón de Modo Oscuro / Claro */
+            .theme-toggle-btn {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                background: #4CAF50;
+                color: #fff;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                z-index: 9998;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
+                transition: transform 0.3s ease;
+            }
+            .theme-toggle-btn:hover {
+                transform: scale(1.1);
+            }
+
+            /* Estilos generales para Modo Oscuro */
+            body.dark-mode {
+                background-color: #121212 !important;
+                color: #e0e0e0 !important;
+            }
+            body.dark-mode section, 
+            body.dark-mode div[style*="background: #f9f9f9"],
+            body.dark-mode div[style*="background: #fff"] {
+                background-color: #1e1e1e !important;
+                color: #e0e0e0 !important;
+                border-color: #333 !important;
+            }
+            body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode p {
+                color: #e0e0e0 !important;
+            }
+            body.dark-mode .form-control {
+                background-color: #2a2a2a;
+                border-color: #444;
+                color: #fff;
+            }
+
+            /* Tarjetas Flotantes */
+            .hover-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 25px rgba(0,0,0,0.15) !important;
+            }
+
+            /* Galería de Fotos */
+            .gallery-img {
+                position: relative;
+                overflow: hidden;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                margin-bottom: 25px;
+            }
+            .gallery-img img {
+                width: 100%;
+                height: 250px;
+                object-fit: cover;
+                transition: transform 0.4s ease;
+            }
+            .gallery-img:hover img {
+                transform: scale(1.08);
+            }
+            .gallery-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+                color: #fff;
+                padding: 20px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .gallery-img:hover .gallery-overlay {
+                opacity: 1;
+            }
+
+            /* Calculadora Interactiva */
+            .calc-box {
+                background: #fff;
+                padding: 35px;
+                border-radius: 12px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            }
+        </style>
+    </head>
+    <body>
+       <!-- Barra de Progreso Superior -->
+       <div id="scroll-progress"></div>
+
+       <!-- Botón flotante de Cambio de Tema -->
+       <button class="theme-toggle-btn" id="themeToggleBtn" title="Cambiar Modo Oscuro/Claro">
+           <i class="fa fa-moon-o" id="themeIcon"></i>
+       </button>
+
+       <header class="header" id="HOME">
+            <!-- Navegación -->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#loso-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Cambiar navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">
+                          <img src="images/logobike.png" alt="logo">
+                        </a>
+                    </div>
+
+                <div class="collapse navbar-collapse" id="loso-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#HOME" class="nav-item">INICIO</a></li>
+                        <li><a href="#about" class="nav-item">ACERCA DE</a></li>
+                        <li><a href="#benefits" class="nav-item">BENEFICIOS</a></li>
+                        <li><a href="#modalities" class="nav-item">DISCIPLINAS</a></li>
+                        <li><a href="#calculator" class="nav-item">CALCULADORA</a></li>
+                        <li><a href="#map-routes" class="nav-item">RUTAS</a></li>
+                        <li><a href="#video-section" class="nav-item">VIDEO</a></li>
+                        <li><a href="#gallery" class="nav-item">GALERÍA</a></li>
+                        <li><a href="#events" class="nav-item">EVENTOS</a></li>
+                        <li><a href="#performers" class="nav-item">CICLISTAS</a></li>
+                        <li><a href="#timeline" class="nav-item">HISTORIA</a></li>
+                        <li><a href="#tips" class="nav-item">CONSEJOS</a></li>
+                        <li><a href="#testimonials" class="nav-item">TESTIMONIOS</a></li>
+                        <li><a href="#faq" class="nav-item">DUDAS</a></li>
+                        <li><a href="#numbers" class="nav-item">LOGROS</a></li>
+                        <li><a href="#contact-us" class="nav-item">CONTACTO</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          
+           <div class="header-overlay">
+               <div class="container">
+                   <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo text-center">
+                            <img src="images/logobike.png" height="80px" width="80px" class="logoimg" />
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-8 wow bounceIn">
+                        <div class="header-text">
+                            <h1>El Arte de Rodar y Vivir con Pasión</h1>
+                            <p>La bicicleta no es solo un medio de transporte o un accesorio deportivo; es una fuente inagotable de libertad, salud mental, energía y transformación personal. ¡Atrévete a transformar tu vida pedalada a pedaleada!</p>
+                        </div>
+                        <div class="header-btns">
+                          <a href="#about">
+                              <i class="fa fa-angle-down wow bounceInUp"></i>
+                          </a>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                       <div class="header-col">
+                         <form role="form" class="header-form">
+                            <h2>Únete al Movimiento</h2>
+                             <div class="form-group">
+                                 <input type="text" placeholder="Nombre" class="form-control input-3x">
+                             </div>
+                             <div class="form-group">
+                                 <input type="text" placeholder="Apellido" class="form-control input-3x">
+                             </div>
+                             <div class="form-group">
+                                 <input type="email" placeholder="Correo Electrónico" class="form-control input-3x">
+                             </div>
+                             <div class="form-group">
+                                 <button type="submit" class="btn btn-primary btn-3x">Inscribirme <span> <i class="fa fa-angle-double-right"></i> </span></button>
+                             </div>
+                         </form>
+                       </div>
+                    </div>
+                </div>
+                </div>
+               </div>
+           </div>
+       </header>
+
+       <!--Sección Acerca de-->
+       <section id="about">
+           <div class="section-about">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-12 wow bounceIn">
+                            <h2 class="section-title">Sobre el Ciclismo</h2>
+                          <p class="under-heading">Un estilo de vida que une la salud física, la aventura y el respeto por el entorno</p>
+                      </div>
+                  </div>
+              </div>
+               <div class="section-wrapper">
+                   <div class="container">
+               <div class="row">
+                   <div class="col-md-4 wow bounceInDown">
+                           <a href="#"><i class="fa fa-user fa-5x square"></i></a>
+                           <h3 class="heading">Comunidad y Fraternidad</h3>
+                           <p class="col-caption">El ciclismo conecta a personas de todas las edades y rincones del mundo. Salir a rodar en grupo fomenta lazos inquebrantables, compañerismo y un profundo sentido de pertenencia a una gran familia sobre dos ruedas.</p>
+                   </div>
+                       
+                    <div class="col-md-4 wow bounceInDown">
+                           <a href="#"><i class="fa fa-bicycle fa-5x"></i></a>
+                           <h3 class="heading">Salud Integral y Energía</h3>
+                           <p class="col-caption">Fortalece tu sistema cardiovascular, protege tus articulaciones con un bajo impacto, aumenta tu capacidad pulmonar y libera endorfinas que reducen drásticamente el estrés diario.</p>
+                    </div>
+                      
+                    <div class="col-md-4 wow bounceInRight">
+                           <a href="#"><i class="fa fa-location-arrow fa-5x"></i></a>
+                           <h3 class="heading">Aventura sin Límites</h3>
+                           <p class="col-caption">Cada ruta es una página nueva en blanco. Descubre paisajes ocultos, supera tus propios límites frente a las subidas más empinadas y experimenta la verdadera libertad al descender.</p>
+                    </div>
+               </div>
+           </div>
+               </div>
+           </div>
+       </section>
+
+       <!--SECCIÓN: BENEFICIOS INSPIRADORES-->
+       <section id="benefits" style="padding: 80px 0; background: #f9f9f9;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">¿Por qué deberías empezar hoy?</h2>
+                       <p class="under-heading">Razones poderosas para cambiar tu rutina y subirte a la bici</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-4 wow bounceInLeft">
+                       <div class="hover-card" style="background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: 100%;">
+                           <i class="fa fa-heartbeat fa-3x" style="color: #4CAF50; margin-bottom: 15px;"></i>
+                           <h3>Corazón de Acero</h3>
+                           <p>Pedalear de forma regular reduce el riesgo de infartos hasta en un 50%, regula la presión arterial y optimiza los niveles de colesterol en la sangre.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-4 wow bounceInUp">
+                       <div class="hover-card" style="background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: 100%;">
+                           <i class="fa fa-smile-o fa-3x" style="color: #4CAF50; margin-bottom: 15px;"></i>
+                           <h3>Mente Clara y Feliz</h3>
+                           <p>El ejercicio aeróbico del ciclismo oxigena el cerebro, combate la ansiedad, despeja los pensamientos negativos y estimula la creatividad y concentración.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-4 wow bounceInRight">
+                       <div class="hover-card" style="background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: 100%;">
+                           <i class="fa fa-leaf fa-3x" style="color: #4CAF50; margin-bottom: 15px;"></i>
+                           <h3>Planeta Sostenible</h3>
+                           <p>Al dejar el automóvil y usar la bicicleta ayudas a disminuir la contaminación atmosférica, reducir el tráfico urbano y cuidar el medio ambiente para las próximas generaciones.</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!--SECCIÓN: TIPOS DE CICLISMO / MODALIDADES-->
+       <section id="modalities" style="padding: 80px 0;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Encuentra tu Estilo</h2>
+                       <p class="under-heading">El ciclismo tiene una modalidad para cada tipo de personalidad</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-4 text-center">
+                       <div class="hover-card" style="padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: 100%;">
+                           <i class="fa fa-road fa-4x" style="color: #4CAF50; margin-bottom: 15px;"></i>
+                           <h3>Ciclismo de Ruta</h3>
+                           <p>Ideal para quienes aman la velocidad, las distancias largas, el asfalto perfecto y la aerodinámica. Desafía tu resistencia en grandes tramos de carretera.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-4 text-center">
+                       <div class="hover-card" style="padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: 100%;">
+                           <i class="fa fa-tree fa-4x" style="color: #4CAF50; margin-bottom: 15px;"></i>
+                           <h3>Ciclismo de Montaña (MTB)</h3>
+                           <p>Para los amantes de la adrenalina pura, la naturaleza salvaje, los senderos de tierra, las piedras y los retos técnicos en medio de bosques y montañas.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-4 text-center">
+                       <div class="hover-card" style="padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: 100%;">
+                           <i class="fa fa-building-o fa-4x" style="color: #4CAF50; margin-bottom: 15px;"></i>
+                           <h3>Ciclismo Urbano</h3>
+                           <p>La alternativa inteligente de transporte diario. Muévete por la ciudad de manera eficiente, ahorra dinero, evita embotellamientos y disfruta tu trayecto diario.</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!-- NUEVA SECCIÓN: CALCULADORA INTERACTIVA DE CALORÍAS Y RENDIMIENTO -->
+       <section id="calculator" style="padding: 80px 0; background: #f9f9f9;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Calculadora de Rendimiento</h2>
+                       <p class="under-heading">Descubre cuántas calorías quemas y cuánto CO₂ ahorras al pedalear</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px; display: flex; justify-content: center;">
+                   <div class="col-md-6">
+                       <div class="calc-box">
+                           <div class="form-group">
+                               <label for="kmInput">Distancia a recorrer (Kilómetros):</label>
+                               <input type="number" id="kmInput" class="form-control" value="20" min="1" max="500" style="font-size: 16px; padding: 10px;">
+                           </div>
+                           <div class="form-group" style="margin-top: 20px;">
+                               <button type="button" id="calculateBtn" class="btn btn-primary btn-block" style="padding: 12px; font-weight: bold; background: #4CAF50; border: none;">CALCULAR MI IMPACTO</button>
+                           </div>
+                           <div id="calcResults" style="margin-top: 30px; background: #f0f8f1; padding: 20px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                               <h4 style="margin-top: 0; color: #2e7d32;">Resultados estimados:</h4>
+                               <p style="font-size: 16px; margin: 8px 0;"><i class="fa fa-fire" style="color: #e65100;"></i> Calorías quemadas: <strong id="resCalories">600</strong> kcal</p>
+                               <p style="font-size: 16px; margin: 8px 0;"><i class="fa fa-leaf" style="color: #2e7d32;"></i> CO₂ ahorrado vs auto: <strong id="resCarbon">3.4</strong> kg</p>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!-- NUEVA SECCIÓN: MAPA INTERACTIVO DE RUTAS DESTACADAS -->
+       <section id="map-routes" style="padding: 80px 0;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Mapa de Rutas y Destinos</h2>
+                       <p class="under-heading">Explora los trayectos más populares recomendados por nuestra comunidad</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-8 col-md-offset-2 text-center">
+                       <div style="background: #e9ecef; height: 350px; border-radius: 12px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                           <!-- Simulación gráfica de mapa interactivo -->
+                           <div style="position: absolute; width: 100%; height: 100%; background: url('images/ruta.jpeg') center/cover; opacity: 0.25;"></div>
+                           <div style="position: relative; z-index: 2; padding: 20px;">
+                               <i class="fa fa-map-marker fa-4x" style="color: #e74c3c; animation: bounce 1.5s infinite;"></i>
+                               <h3 style="margin-top: 15px; font-weight: bold;">Ruta Panorámica de los Miradores</h3>
+                               <p>Distancia: 45 km | Desnivel: 850m | Dificultad: Moderada-Alta</p>
+                               <span class="label label-success" style="font-size: 13px; padding: 6px 12px; display: inline-block; margin-top: 10px;">¡Disponible para este fin de semana!</span>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!-- NUEVA SECCIÓN: VIDEO DESTACADO DEL CICLISMO -->
+       <section id="video-section" style="padding: 80px 0; background: #f0f3f1;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Siente la Emoción del Ciclismo</h2>
+                       <p class="under-heading">Un vistazo en video a la libertad, velocidad y paisajes que te esperan sobre la bicicleta</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-8 col-md-offset-2">
+                       <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); background: #000;">
+                           <!-- Video local: coloca tu archivo en la carpeta videos y nómbralo ciclismo.mp4 -->
+                           <video autoplay muted loop playsinline controls preload="auto"
+                                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                               <source src="video/video1.mp4" type="video/mp4">
+                               Tu navegador no puede reproducir este video.
+                           </video>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!-- SECCIÓN: GALERÍA FOTOGRÁFICA ESTILO MOSAICO -->
+       <section id="gallery" style="padding: 80px 0; background: #f9f9f9;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Galería de la Comunidad</h2>
+                       <p class="under-heading">Momentos capturados en cada rodada, paisaje y aventura</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-3 col-sm-6">
+                       <div class="gallery-img">
+                           <img src="images/imagen1.jpeg" alt="Ruta de Ciclismo">
+                           <div class="gallery-overlay">
+                               <h4>Rutas de Carretera</h4>
+                               <p style="font-size: 12px; margin:0;">Constancia y velocidad en asfalto.</p>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-md-3 col-sm-6">
+                       <div class="gallery-img">
+                           <img src="images/imagen2.jpeg" alt="Aventura MTB">
+                           <div class="gallery-overlay">
+                               <h4>Aventura MTB</h4>
+                               <p style="font-size: 12px; margin:0;">Superando obstáculos naturales.</p>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-md-3 col-sm-6">
+                       <div class="gallery-img">
+                           <img src="images/imagen3.jpeg" alt="Rodada Grupal">
+                           <div class="gallery-overlay">
+                               <h4>Rodadas Grupales</h4>
+                               <p style="font-size: 12px; margin:0;">Compañerismo y diversión.</p>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-md-3 col-sm-6">
+                       <div class="gallery-img">
+                           <img src="images/imagen4.jpeg" alt="Pasión Ciclista" style="object-fit: contain; background: #222;">
+                           <div class="gallery-overlay">
+                               <h4>Pasión sobre Ruedas</h4>
+                               <p style="font-size: 12px; margin:0;">El espíritu del ciclismo puro.</p>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!-- SECCIÓN: PRÓXIMOS EVENTOS Y RODADAS -->
+       <section id="events" style="padding: 80px 0;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Próximos Eventos y Rodadas</h2>
+                       <p class="under-heading">Apunta las fechas y acompáñanos en nuestros próximos recorridos grupales</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border-top: 4px solid #4CAF50;">
+                           <span style="background: #4CAF50; color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 3px;">15 de Octubre</span>
+                           <h3 style="margin-top: 15px;">Gran Fondo de Ruta Regional</h3>
+                           <p><i class="fa fa-map-marker"></i> Salida: Plaza Central - 70 km</p>
+                           <p>Un recorrido desafiante por carretera pavimentada ideal para probar tu velocidad y resistencia con ciclistas de todo nivel.</p>
+                           <a href="#contact-us" class="btn btn-default" style="margin-top: 10px;">Inscribirme</a>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border-top: 4px solid #4CAF50;">
+                           <span style="background: #4CAF50; color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 3px;">22 de Octubre</span>
+                           <h3 style="margin-top: 15px;">Aventura MTB: Sendero Verde</h3>
+                           <p><i class="fa fa-map-marker"></i> Salida: Base del Parque Nacional - 35 km</p>
+                           <p>Adéntrate en los senderos de montaña más hermosos. Nivel técnico moderado, apto para quienes disfrutan de la tierra y la naturaleza.</p>
+                           <a href="#contact-us" class="btn btn-default" style="margin-top: 10px;">Inscribirme</a>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border-top: 4px solid #4CAF50;">
+                           <span style="background: #4CAF50; color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 3px;">30 de Octubre</span>
+                           <h3 style="margin-top: 15px;">Rodada Nocturna Urbana</h3>
+                           <p><i class="fa fa-map-marker"></i> Salida: Monumento Principal - 15 km</p>
+                           <p>Una rodada recreativa y segura por las principales avenidas iluminadas de la ciudad. ¡Obligatorio uso de luces y elementos reflectantes!</p>
+                           <a href="#contact-us" class="btn btn-default" style="margin-top: 10px;">Inscribirme</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!--Sección Ciclistas Destacados-->
+       <section class="performer-section" id="performers">
+           <div class="performer wow flipInY">
+            <div class="performer-overlay">
+                      <div class="container">
+                          <div class="row">
+                              <div class="col-md-12">
+                                <h2 class="section-title">Ciclistas Destacados</h2>
+                              </div>
+                          </div>
+                      </div>
+                       <div class="section-wrapper">
+                           <div class="container">
+                           <div class="row">
+                            <div class="col-md-12">
+                            <div id="carousel-performer" class="carousel slide" data-ride="carousel">
+                                  <ol class="carousel-indicators">
+                                    <li data-target="#carousel-performer" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-performer" data-slide-to="1"></li>
+                                    <li data-target="#carousel-performer" data-slide-to="2"></li>
+                                  </ol>
+                                  <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                      <img src="images/avatarhombre1.jpeg" alt="Ciclista 01">
+                                      <div class="performer-caption">
+                                        <h2>Carlos Mendoza <span class="job"> Especialista en Montaña (MTB) </span></h2>
+                                        <p>Apasionado por el ciclismo de descenso y resistencia. Con más de 10 años recorriendo los senderos más complejos de la región y promoviendo el deporte limpio y el respeto por los senderos naturales.</p>
+                                      </div>
+                                    </div>
+                                    <div class="item">
+                                      <img src="images/imagenmujer.jpeg" alt="Ciclista 02">
+                                      <div class="performer-caption">
+                                        <h2>Sofía Valdés <span class="job"> Ciclista de Ruta </span></h2>
+                                        <p>Competidora de alta velocidad y gran fondo. Ha representado a la comunidad en múltiples circuitos nacionales, destacando por su disciplina férrea, constancia y brillante estrategia en cada carrera.</p>
+                                      </div>
+                                    </div>
+                                    <div class="item">
+                                      <img src="images/avatarhombre2.jpeg" alt="Ciclista 03">
+                                      <div class="performer-caption">
+                                        <h2>Alejandro Ruiz <span class="job"> Entrenador y Guía </span></h2>
+                                        <p>Experto en biomecánica ciclista y preparación física integral. Dedicado a guiar a las nuevas generaciones en el uso seguro de la bicicleta y en técnicas avanzadas de pedaleo eficiente.</p>
+                                      </div>
+                                    </div>
+                                   </div>
+                           </div>
+                        </div>
+                       </div>
+                       </div>
+                       </div>
+               </div>
+               </div>
+       </section>
+
+       <!--Línea de Tiempo / Historia-->
+       <section class="why-us" id="timeline">
+            <div class="section-timeline">
+                <div class="container">
+                    <h2 class="heading">Nuestra<span class="bold-green"> Historia y Hitos</span></h2>
+                    <p class="lead under-heading text-center">Un recorrido por el crecimiento constante de nuestra comunidad ciclista</p>
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-badge"><span class="counteryear">2016</span></div>
+                            <div class="timeline-panal wow bounceIn">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">4,500 Kilómetros de <span class="blue-underline">Rutas Seguras Habilitadas</span> </h4>
+                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> Consolidación de temporada </small></p>
+                                </div>
+                                <div class="timeline-body"><p>Se consolidó con éxito la red de rutas comunitarias protegidas para ciclistas urbanos y de montaña, aumentando la participación de jóvenes entusiastas en un 40% a nivel regional.</p></div>
+                            </div>
+                        </li>
+                        
+                        <li class="timeline-inverted">
+                            <div class="timeline-badge"><span class="counteryear">2015</span></div>
+                            <div class="timeline-panal  wow bounceIn">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title"><span class="blue-underline">100,000</span> Horas de Pedaleo Colectivo</h4>
+                                    <p><small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> Hito de impacto social </small></p>
+                                </div>
+                                <div class="timeline-body"><p>Lanzamiento oficial de la gran campaña masiva orientada a fomentar el uso cotidiano de la bicicleta como medio de transporte sostenible, saludable y verdaderamente ecológico.</p></div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="timeline-badge"><span class="counteryear">2014</span></div>
+                            <div class="timeline-panal wow bounceIn">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title"><span class="blue-underline">3.9 / 5</span> Índice de Aceptación Vial</h4>
+                                    <p><small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> Evaluación inicial del proyecto </small></p>
+                                </div>
+                                <div class="timeline-body"><p>Inicios de este gran sueño deportivo con la fundación de los primeros talleres mecánicos comunitarios y clínicas gratuitas orientadas a la educación vial de ciclistas novatos.</p></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+       <!--SECCIÓN: CONSEJOS PARA PRINCIPIANTES-->
+       <section id="tips" style="padding: 80px 0; background: #f9f9f9;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Consejos de Oro para Empezar</h2>
+                       <p class="under-heading">Todo lo que debes tener en cuenta si vas a dar tus primeros pedales</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-left: 4px solid #4CAF50; border-radius: 0 8px 8px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px;">
+                           <h4>1. La Elección de tu Bici</h4>
+                           <p>Asegúrate de que el talle (tamaño del cuadro) sea el correcto para tu estatura. Una bicicleta mal ajustada puede causar dolores musculares innecesarios.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-left: 4px solid #4CAF50; border-radius: 0 8px 8px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px;">
+                           <h4>2. Seguridad Ante Todo</h4>
+                           <p>Usa siempre casco certificado, luces delanteras y traseras si ruedas de noche, y ropa de colores visibles para los conductores de vehículos motorizados.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-left: 4px solid #4CAF50; border-radius: 0 8px 8px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px;">
+                           <h4>3. Hidratación Constante</h4>
+                           <p>Lleva siempre agua o bebidas isotónicas contigo. No esperes a sentir sed extrema para beber; hidrátate en pequeños sorbos de manera regular durante el recorrido.</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!-- SECCIÓN: TESTIMONIOS E HISTORIAS DE ÉXITO -->
+       <section id="testimonials" style="padding: 80px 0;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Lo que Dicen Nuestros Ciclistas</h2>
+                       <p class="under-heading">Historias reales de personas que transformaron su salud y estilo de vida</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 30px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: 100%;">
+                           <p style="font-style: italic; color: #555;">"Empecé a rodar para perder peso y terminé encontrando una segunda familia. En menos de un año mejoré mi salud por completo y ahora no puedo vivir sin mi bici."</p>
+                           <h5 style="margin-top: 15px; font-weight: bold; color: #333;">— Marcela Gómez</h5>
+                           <span style="font-size: 12px; color: #777;">Ciclista Urbana y de Ruta</span>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 30px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: 100%;">
+                           <p style="font-style: italic; color: #555;">"Las rutas de montaña me ayudaron a desconectarme del estrés laboral de la semana. La energía y la paz que se sienten en cada cima no tienen comparación."</p>
+                           <h5 style="margin-top: 15px; font-weight: bold; color: #333;">— Javier Morales</h5>
+                           <span style="font-size: 12px; color: #777;">Entusiasta de MTB</span>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="hover-card" style="background: #fff; padding: 30px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: 100%;">
+                           <p style="font-style: italic; color: #555;">"Gracias a las clínicas gratuitas aprendí mecánica básica y a reparar llantas pinchadas en plena ruta. ¡Excelente iniciativa para todos los que iniciamos!"</p>
+                           <h5 style="margin-top: 15px; font-weight: bold; color: #333;">— Daniela Torres</h5>
+                           <span style="font-size: 12px; color: #777;">Ciclista Principiante</span>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+       <!-- SECCIÓN: PREGUNTAS FRECUENTES (FAQ) -->
+       <section id="faq" style="padding: 80px 0; background: #f9f9f9;">
+           <div class="container">
+               <div class="row">
+                   <div class="col-md-12 text-center wow bounceIn">
+                       <h2 class="section-title">Preguntas Frecuentes</h2>
+                       <p class="under-heading">Resolvemos tus dudas principales para que te animes a dar el paso</p>
+                   </div>
+               </div>
+               <div class="row" style="margin-top: 40px;">
+                   <div class="col-md-6">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px;">
+                           <h4 style="color: #4CAF50;"><i class="fa fa-question-circle"></i> ¿Necesito una bicicleta profesional para unirme?</h4>
+                           <p style="margin-top: 10px;">¡Para nada! Contamos con rutas y eventos para todos los niveles. Puedes empezar con cualquier bicicleta en buen estado mecánico que te resulte cómoda.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-6">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px;">
+                           <h4 style="color: #4CAF50;"><i class="fa fa-question-circle"></i> ¿Tienen costo las inscripciones a las rodadas?</h4>
+                           <p style="margin-top: 10px;">La gran mayoría de nuestras rodadas comunitarias urbanas y recreativas son 100% gratuitas y abiertas al público general.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-6">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px;">
+                           <h4 style="color: #4CAF50;"><i class="fa fa-question-circle"></i> ¿Es obligatorio el uso de casco?</h4>
+                           <p style="margin-top: 10px;">Sí, por razones estrictas de seguridad personal, es un requisito indispensable y obligatorio participar en cualquiera de nuestras rodadas oficiales portando casco.</p>
+                       </div>
+                   </div>
+                   <div class="col-md-6">
+                       <div class="hover-card" style="background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px;">
+                           <h4 style="color: #4CAF50;"><i class="fa fa-question-circle"></i> ¿Cómo puedo formar parte oficial de la comunidad?</h4>
+                           <p style="margin-top: 10px;">Solo debes llenar el formulario de registro o contacto en esta página web y te agregaremos a nuestros canales informativos y grupos de salida.</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+        <!--Estadísticas / Números-->
+        <section id="numbers">
+            <div class="numbers-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="section-title">Estadísticas del Deporte</h2>
+                            <p class="under-heading">Revisa nuestro impacto real y números dentro de la comunidad</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="num-data block-inline hover-card" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px;">
+                                    <i class="fa fa-flag fa-5x"></i>
+                                    <div class="counter">34,653</div>
+                                    <p>Tours Realizados</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="num-data block-inline hover-card" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px;">
+                                    <i class="fa fa-database fa-5x"></i>
+                                    <div class="counter">354</div>
+                                    <p>Atletas Registrados</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="num-data block-inline hover-card" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px;">
+                                    <i class="fa fa-bicycle fa-5x"></i>
+                                    <div class="counter">64,366</div>
+                                    <p>Bicicletas Activas</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="num-data block-inline hover-card" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px;">
+                                    <i class="fa fa-life-ring fa-5x"></i>
+                                    <div class="counter">1,452</div>
+                                    <p>Asistencias en Ruta</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Sección de Contacto-->
+        <section id="contact-us">
+            <div class="contact-us">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 wow bounceInDown">
+                            <h2 class="section-title">Déjanos tu Mensaje o Inscríbete</h2>
+                            <p class="under-heading">Ponte en contacto con nuestro equipo para cualquier duda, sugerencia o para sumarte a las próximas rodadas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-wrapper">
+                    <div class="container">
+                        <form role="form">
+                            <div class="row">
+                            <div class="col-md-6 wow bounceInLeft">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Tu Nombre" class="form-control input-lg">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" placeholder="Tu Correo Electrónico" class="form-control input-lg">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Asunto" class="form-control input-lg">
+                                    </div>
+                            </div>
+                            <div class="col-md-6 wow bounceInRight">
+                               <div class="form-group">
+                                <textarea placeholder="Tu Mensaje" class="form-control"></textarea>
+                               </div>
+                               <button type="submit" class="btn btn-primary btn-block input-lg">ENVIAR MENSAJE</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="social-icons wow slideInDown">
+                                    <ul class="list-unstyled">
+                                        <li><a href="#"><i class="fa fa-facebook fa-3x"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter fa-3x"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus fa-3x"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-instagram fa-3x"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Pie de página-->
+        <section id="footer">
+            <div class="footer-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="footer-text">Copyright <span class="copyright"> &copy;</span> 2026</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="footer-text">Comunidad Global de Ciclismo</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="footer-text">Diseñado por Annete Álvarez </a></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Carga de pantalla-->
+        <section class="loading-overlay">
+           <div class="sk-cube-grid">
+            <div class="sk-cube sk-cube1"></div>
+            <div class="sk-cube sk-cube2"></div>
+            <div class="sk-cube sk-cube3"></div>
+            <div class="sk-cube sk-cube4"></div>
+            <div class="sk-cube sk-cube5"></div>
+            <div class="sk-cube sk-cube6"></div>
+            <div class="sk-cube sk-cube7"></div>
+            <div class="sk-cube sk-cube8"></div>
+            <div class="sk-cube sk-cube9"></div>
+           </div>
+        </section>
+       
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/jquery.counterup.min.js"></script>
+        <script src="js/jquery.waypoints.min.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script>
+            new WOW().init();
+
+            // Script para la barra de progreso de desplazamiento
+            window.addEventListener('scroll', function() {
+                var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var scrolled = (winScroll / height) * 100;
+                document.getElementById('scroll-progress').style.width = scrolled + '%';
+            });
+
+            // Script para cambiar Modo Oscuro / Claro
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeIcon = document.getElementById('themeIcon');
+            themeToggleBtn.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                if(document.body.classList.contains('dark-mode')) {
+                    themeIcon.classList.remove('fa-moon-o');
+                    themeIcon.classList.add('fa-sun-o');
+                } else {
+                    themeIcon.classList.remove('fa-sun-o');
+                    themeIcon.classList.add('fa-moon-o');
+                }
+            });
+
+            // Script para la Calculadora de Rendimiento de Ciclismo
+            document.getElementById('calculateBtn').addEventListener('click', function() {
+                var km = parseFloat(document.getElementById('kmInput').value) || 0;
+                // Estimación aproximada: ~30 kcal por kilómetro y ~0.17 kg de CO2 ahorrado por km en auto
+                var calories = Math.round(km * 30);
+                var carbon = (km * 0.17).toFixed(1);
+
+                document.getElementById('resCalories').innerText = calories;
+                document.getElementById('resCarbon').innerText = carbon;
+            });
+        </script>
+    </body>
+</html>
